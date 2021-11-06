@@ -7,12 +7,12 @@
         </span>
 				<span class="text">Kembali</span>
 			</a>
-<!--			<a href="--><?//= base_url('downloads/guru_template.xlsx') ?><!--" class="btn btn-sm btn-success btn-icon-split">-->
-<!--        <span class="icon text-white-50">-->
-<!--          <i class="fas fa-fw fa-cloud-download-alt"></i>-->
-<!--        </span>-->
-<!--				<span class="text">Download format</span>-->
-<!--			</a>-->
+			<a href="<?= base_url('download/format-import-umkm.xlsx') ?>" class="btn btn-sm btn-success btn-icon-split">
+        <span class="icon text-white-50">
+          <i class="fas fa-fw fa-cloud-download-alt"></i>
+        </span>
+				<span class="text">Download format</span>
+			</a>
 		</div>
 		<form method="post" enctype="multipart/form-data">
 			<div class="card-body">

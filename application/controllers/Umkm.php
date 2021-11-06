@@ -16,9 +16,13 @@ class Umkm extends CI_Controller
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
 		$length = intval($this->input->get("length"));
+		$search = $this->input->get('search[value]');
 
+		$query = $this->db->limit($length, $start);
+		if ($search != '') {
+			$query = $this->db->like('nama_usaha', $search);
+		}
 
-		$query = $this->db->limit($_GET['length'], $_GET['start']);
 		$query = $query->get('umkm');
 
 		$data = array();
@@ -29,7 +33,7 @@ class Umkm extends CI_Controller
 				$k+1,
 				$r->nama_usaha,
 				$r->nama_pemilik,
-				'<div class="text-right">'.number_format($r->omset, 2).'</div>',
+				'<div class="text-right">Rp.'.number_format($r->omset, 2).'</div>',
 				$r->telp,
 				$r->spek,
 				'<div class="btn-group">
@@ -37,6 +41,7 @@ class Umkm extends CI_Controller
 						Aksi
 					</button>
 					<div class="dropdown-menu">
+						<a class="dropdown-item" href="'.base_url('umkm/detail/'.$r->id).'">Detail</a>
 						<a class="dropdown-item" href="'.base_url('umkm/edit/'.$r->id).'">Edit</a>
 						<a class="dropdown-item confirm" href="'.base_url('umkm/delete/'.$r->id).'">Hapus</a>
 					</div>
@@ -109,6 +114,12 @@ class Umkm extends CI_Controller
 			alertsuccess('message','Data berhasil ditambahkan');
 			redirect('umkm');
 		}
+	}
+
+	public function detail($id)
+	{
+		$data['umkm'] = $this->db->get_where('umkm', ['id' => $id])->row();
+		$this->template->load('template', 'umkm/detail', $data);
 	}
 
 	public function delete($id)

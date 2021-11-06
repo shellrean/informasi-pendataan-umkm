@@ -57,7 +57,7 @@ $user = $this->db->get_where('user', ['username' => $this->session->userdata('us
 			<div class="sidebar-brand-icon">
 				<img src="<?= base_url('assets/img/logo.png') ?>" style="max-width:40px">
 			</div>
-			<div class="sidebar-brand-text mx-3 text-left"><small>INFORMASI</small><br> <small>PENDATAAN</small></div>
+			<div class="sidebar-brand-text mx-3 text-left"><small>PENDATAAN</small><br> <small>UMKM</small></div>
 		</a>
 
 		<!-- Divider -->
@@ -251,7 +251,7 @@ $user = $this->db->get_where('user', ['username' => $this->session->userdata('us
 					"orderable": false,
 				},
 			],
-			"searching": false
+			"ordering": false
 		});
 	})
 </script>

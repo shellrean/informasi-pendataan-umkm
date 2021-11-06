@@ -99,4 +99,38 @@ class User extends CI_Controller
 
 		echo json_encode($data);
 	}
+
+	public function profile()
+	{
+		if(! empty($_FILES['image']['name'])) {
+			$this->_uploadImage();
+			redirect('user/profile');
+		} else {
+			$data['user'] = $this->db->get_where('user',['username' => $this->session->userdata('username')])->row();
+			$this->template->load('template','user/profile',$data);
+		}
+	}
+
+	private function _uploadImage()
+	{
+		$config['upload_path']          = './assets/img/profile/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['file_name']            = time().uniqid();
+		$config['overwrite']			      = true;
+		$config['max_size']             = 1024; // 1MB
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('image')) {
+			$filename =  $this->upload->data("file_name");
+		} else {
+			$filename = 'default.png';
+		}
+		$data = [
+			'image' => $filename,
+		];
+
+		$this->db->where('username', $this->session->userdata('username'));
+		$this->db->update('user', $data);
+	}
 }
